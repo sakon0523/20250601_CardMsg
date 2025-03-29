@@ -3,84 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">  <!-- 検索エンジンから非表示 -->
-    <title>ころちゃん</title>
-    <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            margin-top: 20px;
-        }
-
-        .slideshow-container {
-            position: relative;
-            width: 100%; /* 横幅を画面幅にフィット */
-            max-width: 480px; /* 最大幅を指定 */
-            aspect-ratio: 16 / 9; /* アスペクト比を維持 */
-            margin: auto;
-            overflow: hidden;
-            background-color: #000; /* 背景色を黒に設定（任意） */
-        }
-
-        .slideshow-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* 画像全体を表示 */
-            display: none;
-        }
-
-        .slideshow-container img.active {
-            display: block;
-        }
-
-        .slideshow-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .left {
-            left: 10px;
-        }
-
-        .right {
-            right: 10px;
-        }
-
-        .message {
-            margin: 20px 0;
-            font-size: 18px;
-            text-align: center;
-        }
-
-        .link-container {
-            margin-top: 20px;
-        }
-
-        .capture-link {
-            display: inline-block;
-            text-decoration: none;
-            color: blue;
-            font-weight: bold;
-            font-size: 18px;
-        }
-    </style>
+    <title>スライドショー</title>
+    <link rel="stylesheet" href="../utility.css">
 </head>
 <body>
-
-    <h1>ころちゃん</h1>
-
     <div class="slideshow-container">
         <button class="slideshow-button left">&lt;</button>
         <button class="slideshow-button right">&gt;</button>
+        <!-- 画像をフォルダ内に配置 -->
         <img src="coro_0.png" alt="画像1" class="active">
         <img src="coro_1.png" alt="画像2">
         <img src="coro_2.png" alt="画像3">
@@ -89,39 +19,18 @@
     <div class="message">
         <h3>いつもありがとう</h3>
         <h3>これからもよろしくね！</h3>
-        <h3>撮影してみてね。</h3>
     </div>
 
     <div class="link-container">
-        <a href="https://michitakasakon.staging.8thwall.app/test-005/" target="_blank" class="capture-link">
+        <a href="https://example.com" target="_blank" class="capture-link">
             撮影ページへ移動
         </a>
     </div>
 
     <h5>パスワード：結婚式当日の日付+名字</h5>
-    <h5>例：今日が2025年1月1日で、あなたの名前が田中であれば、</h5>
+    <h5>例：今日が2025年1月1日で、あなたの苗字が田中であれば、</h5>
     <h5>「20250101tanaka」と入力してください</h5>
 
-    <script>
-        const images = document.querySelectorAll('.slideshow-container img');
-        const prevButton = document.querySelector('.slideshow-button.left');
-        const nextButton = document.querySelector('.slideshow-button.right');
-        let currentIndex = 0;
-
-        const changeSlide = (index) => {
-            images[currentIndex].classList.remove('active');
-            currentIndex = (index + images.length) % images.length;
-            images[currentIndex].classList.add('active');
-        };
-
-        prevButton.addEventListener('click', () => {
-            changeSlide(currentIndex - 1);
-        });
-
-        nextButton.addEventListener('click', () => {
-            changeSlide(currentIndex + 1);
-        });
-    </script>
-
+    <script src="../utility.js"></script>
 </body>
 </html>
