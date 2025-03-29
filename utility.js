@@ -4,6 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const nextButton = document.querySelector('.slideshow-button.right');
     const indicatorContainer = document.querySelector('.indicator-container');
     let currentIndex = 0;
+    // パスワード保護のスクリプト
+    const correctPassword = "my0601"; // 正しいパスワードを設定
+    const passwordScreen = document.getElementById("password-screen");
+    const mainContent = document.getElementById("main-content");
+    const passwordInput = document.getElementById("password-input");
+    const passwordSubmit = document.getElementById("password-submit");
+    const passwordError = document.getElementById("password-error");
 
     // インジケーターを生成
     const createIndicators = () => {
@@ -52,4 +59,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 初期化
     createIndicators();
+
+    passwordSubmit.addEventListener("click", () => {
+        const enteredPassword = passwordInput.value;
+        if (enteredPassword === correctPassword) {
+            passwordScreen.style.display = "none"; // パスワード画面を非表示
+            mainContent.style.display = "block"; // メインコンテンツを表示
+        } else {
+            passwordError.style.display = "block"; // エラーメッセージを表示
+        }
+    });
+
+    // 外部HTMLファイルを読み込むスクリプト
+    fetch('message.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('message-container').innerHTML = data;
+        })
+        .catch(error => console.error('メッセージの読み込みに失敗しました:', error));
+
+    fetch('link.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('link-container').innerHTML = data;
+        })
+        .catch(error => console.error('リンクの読み込みに失敗しました:', error));
 });

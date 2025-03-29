@@ -6,34 +6,6 @@
     <meta name="robots" content="noindex, nofollow">  <!-- 検索エンジンから非表示 -->
     <title>CardMsg</title>
     <link rel="stylesheet" href="../utility.css">
-    <style>
-        /* パスワード入力画面のスタイル */
-        #password-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        #password-screen input {
-            padding: 10px;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        #password-screen button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
     <!-- パスワード入力画面 -->
@@ -61,40 +33,5 @@
     </div>
 
     <script src="../utility.js"></script>
-    <script>
-        // パスワード保護のスクリプト
-        const correctPassword = "my0601"; // 正しいパスワードを設定
-        const passwordScreen = document.getElementById("password-screen");
-        const mainContent = document.getElementById("main-content");
-        const passwordInput = document.getElementById("password-input");
-        const passwordSubmit = document.getElementById("password-submit");
-        const passwordError = document.getElementById("password-error");
-
-        passwordSubmit.addEventListener("click", () => {
-            const enteredPassword = passwordInput.value;
-            if (enteredPassword === correctPassword) {
-                passwordScreen.style.display = "none"; // パスワード画面を非表示
-                mainContent.style.display = "block"; // メインコンテンツを表示
-            } else {
-                passwordError.style.display = "block"; // エラーメッセージを表示
-            }
-        });
-    </script>
-    <script>
-        // 外部HTMLファイルを読み込むスクリプト
-        fetch('message.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('message-container').innerHTML = data;
-            })
-            .catch(error => console.error('メッセージの読み込みに失敗しました:', error));
-
-        fetch('link.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('link-container').innerHTML = data;
-            })
-            .catch(error => console.error('リンクの読み込みに失敗しました:', error));
-    </script>
 </body>
 </html>
