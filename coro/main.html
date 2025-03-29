@@ -8,8 +8,10 @@
     <style>
         .slideshow-container {
             position: relative;
-            width: 640px; /* 画像の幅を指定 */
-            height: 360px; /* 画像の高さを指定 */
+            width: 100%; /* 横幅を画面幅にフィット */
+            max-width: 480px; /* 最大幅を指定 */
+            height: auto; /* 高さを自動調整 */
+            aspect-ratio: 16 / 9; /* アスペクト比を維持 */
             margin: auto;
             overflow: hidden;
             background-color: #000; /* 背景色を黒に設定（任意） */
