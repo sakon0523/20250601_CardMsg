@@ -15,21 +15,29 @@
         <img src="img_2.png" alt="画像3">
     </div>
 
-    <div class="message">
-        <h3>いつもありがとう</h3>
-        <h3>これからもよろしくね！</h3>
-    </div>
-
-    <div class="link-container">
-        <a href="https://michitakasakon.staging.8thwall.app/test-005/" target="_blank" class="capture-link">
-            撮影ページへ移動
-        </a>
-    </div>
+    <div id="message-container"></div>
+    <div id="link-container"></div>
 
     <h5>パスワード：結婚式当日の日付+名字</h5>
     <h5>例：今日が2025年1月1日で、あなたの苗字が田中であれば、</h5>
     <h5>「20250101tanaka」と入力してください</h5>
 
     <script src="../utility.js"></script>
+    <script>
+        // 外部HTMLファイルを読み込むスクリプト
+        fetch('message.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('message-container').innerHTML = data;
+            })
+            .catch(error => console.error('メッセージの読み込みに失敗しました:', error));
+
+        fetch('link.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('link-container').innerHTML = data;
+            })
+            .catch(error => console.error('リンクの読み込みに失敗しました:', error));
+    </script>
 </body>
 </html>
