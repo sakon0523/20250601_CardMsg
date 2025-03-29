@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // 自動スライド
-    setInterval(() => {
-        changeSlide(currentIndex + 1);
-    }, 3000);
+    // setInterval(() => {
+    //     changeSlide(currentIndex + 1);
+    // }, 3000);
 
     // ボタンのクリックイベント
     prevButton.addEventListener('click', () => {
