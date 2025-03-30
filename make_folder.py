@@ -2,6 +2,7 @@ import os
 import csv
 import uuid
 import shutil
+import re
 
 # CSVファイルのパス
 csv_file_path = "input.csv"  # CSVファイル名を指定
@@ -19,10 +20,12 @@ def create_folders_and_update_html(csv_file, base_path, template_file):
 
     with open(csv_file, mode="r", encoding="utf-8") as file:
         reader = csv.reader(file)
+        header = next(reader)
         for row in reader:
-            if len(row) < 1:
+            if len(row) < 2:
                 continue  # 空行をスキップ
-            name = row[0].strip()  # 名前を取得
+            name = row[0].strip()  # 1列目: 名前
+            link = row[1].strip()  # 2列目: リンク
             folder_path = os.path.join(base_path, name)  # フォルダ名は名称のみ
 
             # フォルダが存在しない場合は作成
@@ -32,14 +35,31 @@ def create_folders_and_update_html(csv_file, base_path, template_file):
             else:
                 print(f"フォルダが既に存在します: {folder_path}")
 
-            # link.html と message.html を確認してコピー
-            for static_file in ["link.html", "message.html"]:
-                static_file_path = os.path.join(folder_path, static_file)
-                if not os.path.exists(static_file_path):
-                    shutil.copy(os.path.join(base_path, "_sample", static_file), static_file_path)
-                    print(f"{static_file} をコピーしました: {static_file_path}")
-                else:
-                    print(f"{static_file} は既に存在します: {static_file_path}")
+            # link.html を確認してコピー
+            link_file_path = os.path.join(folder_path, "link.html")
+            if not os.path.exists(link_file_path):
+                shutil.copy(os.path.join(base_path, "_sample", "link.html"), link_file_path)
+                print(f"link.html をコピーしました: {link_file_path}")
+            else:
+                print(f"link.html は既に存在します: {link_file_path}")
+
+            # link.html の中身を更新
+            if os.path.exists(link_file_path):
+                with open(link_file_path, mode="r", encoding="utf-8") as file:
+                    content = file.read()
+                # href="..." の部分を新しいリンクで置換
+                content = re.sub(r'href=".*?"', f'href="{link}"', content)
+                with open(link_file_path, mode="w", encoding="utf-8") as file:
+                    file.write(content)
+                print(f"link.html のリンクを更新しました: {link_file_path}")
+
+            # message.html を確認してコピー
+            message_file_path = os.path.join(folder_path, "message.html")
+            if not os.path.exists(message_file_path):
+                shutil.copy(os.path.join(base_path, "_sample", "message.html"), message_file_path)
+                print(f"message.html をコピーしました: {message_file_path}")
+            else:
+                print(f"message.html は既に存在します: {message_file_path}")
 
             # UUID.html ファイルを探して中身を更新
             existing_html_file = None
