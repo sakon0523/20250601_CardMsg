@@ -7,6 +7,11 @@ h1 {
     margin-top: 20px;
 }
 
+/* ----------------------------------------------------------- */
+/* main.html */
+/* 画像の切り替え */
+/* ----------------------------------------------------------- */
+
 .slideshow-container {
     position: relative;
     width: 100%;
@@ -47,24 +52,10 @@ h1 {
     right: 10px;
 }
 
-.message {
-    margin: 20px 0;
-    font-size: 18px;
-    text-align: center;
-}
-
-.link-container {
-    margin-top: 20px;
-}
-
-.capture-link {
-    display: inline-block;
-    text-decoration: none;
-    color: blue;
-    font-weight: bold;
-    font-size: 18px;
-}
-
+/* ----------------------------------------------------------- */
+/* main.html */
+/* 画像の切り替えのまるポチ */
+/* ----------------------------------------------------------- */
 .indicator-container {
     text-align: center;
     margin-top: 10px;
@@ -82,4 +73,29 @@ h1 {
 
 .indicator.active {
     background-color: #333;
+}
+
+/* ----------------------------------------------------------- */
+/* message.html */
+/* ----------------------------------------------------------- */
+.message {
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+.hidden { display: none; }
+
+/* ----------------------------------------------------------- */
+/* link.html */
+/* ----------------------------------------------------------- */
+.link-container {
+    margin-top: 20px;
+}
+.capture-link {
+    display: inline-block;
+    text-decoration: none;
+    color: blue;
+    font-weight: bold;
+    font-size: 18px;
 }
