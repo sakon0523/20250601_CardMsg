@@ -45,6 +45,10 @@
     </div>
 
     <div id="main-content" style="display: none;">
+
+        <div id="message-container"></div>
+        <div style="height: 5px;"></div>
+
         <div class="slideshow-container">
             <button class="slideshow-button left">&lt;</button>
             <button class="slideshow-button right">&gt;</button>
@@ -54,15 +58,14 @@
         </div>
 
         <div class="indicator-container"></div>
-        <div id="message-container"></div>
+
         <div id="link-container"></div>
 
         <div id="notice-container">
             <p><b>[注意事項]</b></p>
-            <p><b>パスワードの守秘:</b> パスワードは第三者に共有しないでください．不正アクセスを防ぐため、適切に管理してください．</p>
-            <p><b>個人情報:</b> 入力された情報は保存されませんが，外部での使用には注意してください．</p>
-            <p><b>動作保証:</b> 一時的且つお手製のものであり，すべての環境での動作を保証するものではありません．</p>
-            <p><b>利用期限:</b> こちらのページは一週間後に非公開予定です．</p>
+            <p><b>パスワード:</b> 第三者に共有しないでください．不正アクセスを防止の為，適切に管理してください．</p>
+            <p><b>動作保証:</b> 一時的且つお手製のものです．すべての環境での動作を保証するものではありません．</p>
+            <p><b>利用期限:</b> こちらのページは1週間後に非公開予定です．</p>
         </div>
     </div>
 
@@ -87,13 +90,6 @@
         });
     </script>
     <script>
-        fetch('message.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('message-container').innerHTML = data;
-            })
-            .catch(error => console.error('メッセージの読み込みに失敗しました:', error));
-
         fetch('link.html')
             .then(response => response.text())
             .then(data => {
@@ -101,7 +97,7 @@
             })
             .catch(error => console.error('リンクの読み込みに失敗しました:', error));
 
-            fetch('message.html')
+        fetch('message.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('message-container').innerHTML = data;
