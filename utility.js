@@ -53,3 +53,32 @@ document.addEventListener("DOMContentLoaded", () => {
     // 初期化
     createIndicators();
 });
+
+fetch('message.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('message-container').innerHTML = data;
+    })
+    .catch(error => console.error('メッセージの読み込みに失敗しました:', error));
+
+fetch('link.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('link-container').innerHTML = data;
+    })
+    .catch(error => console.error('リンクの読み込みに失敗しました:', error));
+
+    fetch('message.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('message-container').innerHTML = data;
+
+        // メッセージが読み込まれた後にイベントリスナーを設定
+        const cards = document.querySelectorAll(".message-container");
+        cards.forEach((card) => {
+            card.addEventListener("click", () => {
+                card.classList.toggle("is-flipped");
+            });
+        });
+    })
+    .catch(error => console.error('メッセージの読み込みに失敗しました:', error));

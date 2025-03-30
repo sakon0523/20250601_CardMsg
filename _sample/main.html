@@ -57,7 +57,13 @@
         <div id="message-container"></div>
         <div id="link-container"></div>
 
-        <h5>お手製のため、動作しなかったらすみません...</h5>
+        <div id="notice-container">
+            <p><b>[注意事項]</b></p>
+            <p><b>パスワードの守秘:</b> パスワードは第三者に共有しないでください．不正アクセスを防ぐため、適切に管理してください．</p>
+            <p><b>個人情報:</b> 入力された情報は保存されませんが，外部での使用には注意してください．</p>
+            <p><b>動作保証:</b> 一時的且つお手製のものであり，すべての環境での動作を保証するものではありません．</p>
+            <p><b>利用期限:</b> こちらのページは一週間後に非公開予定です．</p>
+        </div>
     </div>
 
     <script src="../utility.js"></script>
@@ -79,22 +85,6 @@
                 passwordError.style.display = "block"; // エラーメッセージを表示
             }
         });
-    </script>
-    <script>
-        // 外部HTMLファイルを読み込むスクリプト
-        fetch('message.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('message-container').innerHTML = data;
-            })
-            .catch(error => console.error('メッセージの読み込みに失敗しました:', error));
-
-        fetch('link.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('link-container').innerHTML = data;
-            })
-            .catch(error => console.error('リンクの読み込みに失敗しました:', error));
     </script>
 </body>
 </html>

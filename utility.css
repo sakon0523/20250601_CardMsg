@@ -1,4 +1,6 @@
 body {
+    display: grid;
+    place-items: center;
     text-align: center;
     font-family: Arial, sans-serif;
 }
@@ -75,27 +77,104 @@ h1 {
     background-color: #333;
 }
 
+#notice-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 12px;
+    background-color: #f9f9f9;
+    color: #333;
+    border-radius: 5px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+#notice-container p {
+    margin: 5px 0;
+}
+
 /* ----------------------------------------------------------- */
 /* message.html */
 /* ----------------------------------------------------------- */
-.message {
-    margin: 20px 0;
-    font-size: 18px;
-    text-align: center;
+.message-container {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    height: 200px;
+    transform-style: preserve-3d;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    font-size: 15px;
 }
 
-.hidden { display: none; }
+.cardface {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        color: #ffffff;
+        border-radius: 1vw;
+        background-color: #000000;
+        box-shadow:
+        0 4px 4px rgba(68, 68, 68, 0.1),
+        inset 0 1px 3px rgb(255 255 255 / 0..3);
+        transition:
+        transform 0.6s;
+        backface-visibility: hidden;
+    }
+
+    .cardface__front {
+        transform: none;
+    }
+
+    .is-flipped .cardface__front {
+        transform: rotateY(180deg);
+    }
+
+    .cardface__back {
+        transform: rotateY(180deg);
+        color: #000000;
+        background: linear-gradient(to right, rgb(255, 255, 255), rgb(134, 183, 216));
+    }
+    .is-flipped .cardface__back {
+        transform: rotateY(360deg);
+    }
 
 /* ----------------------------------------------------------- */
 /* link.html */
 /* ----------------------------------------------------------- */
 .link-container {
+    text-align: center; /* ボタンを中央揃え */
     margin-top: 20px;
 }
+
 .capture-link {
     display: inline-block;
-    text-decoration: none;
-    color: blue;
+    padding: 12px 24px;
+    font-size: 16px;
     font-weight: bold;
-    font-size: 18px;
+    text-decoration: none;
+    color: white;
+    background-color: #007BFF; /* ボタンの背景色 */
+    border-radius: 25px; /* 丸みを付ける */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影を追加 */
+    transition: all 0.3s ease; /* ホバー時のアニメーション */
+}
+
+.capture-link:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* ホバー時の影 */
+    transform: translateY(-2px); /* ホバー時に少し浮く */
+}
+
+.capture-link:active {
+    background-color: #003f7f; /* クリック時の背景色 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* クリック時の影 */
+    transform: translateY(0); /* クリック時に元に戻る */
 }
