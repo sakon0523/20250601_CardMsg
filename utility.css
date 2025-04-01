@@ -2,7 +2,8 @@ body {
     display: grid;
     place-items: center;
     text-align: center;
-    font-family: Arial, sans-serif;
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #fdf6ee;
 }
 
 h1 {
@@ -39,7 +40,7 @@ h1 {
     place-items: center;
     width: 100%;
     height: 200px;
-    color: #ffffff;
+    color: #fffdf8;
     border-radius: 1vw;
     background-color: #000000;
     box-shadow: 0 4px 4px rgba(68, 68, 68, 0.1), inset 0 1px 3px rgb(255 255 255 / 0.3);
@@ -61,7 +62,7 @@ h1 {
 .cardface__back {
     transform: rotateY(180deg);
     color: #000000;
-    background-color: white;
+    background-color: #fffdf8;
     padding: 10px;
     height: 200px;
     word-wrap: break-word;
@@ -85,7 +86,7 @@ h1 {
     aspect-ratio: 16 / 9;
     margin: auto;
     overflow: hidden;
-    background-color: #dadada;
+    background-color: #fffdf8;
 }
 
 .slideshow-container img {
@@ -148,7 +149,7 @@ h1 {
     text-align: center; /* ボタンを中央揃え */
     margin-top: 20px;
     font-size: 12px;
-    color: #333;
+    color: #4b4134;
     border-radius: 5px;
     max-width: 480px;
     margin-left: auto;
@@ -156,7 +157,7 @@ h1 {
 }
 
 .link-container h2 {
-    color: #007BFF;
+    color: #4b4134;
 }
 
 .link-container p {
@@ -172,20 +173,20 @@ h1 {
     font-weight: bold;
     text-decoration: none;
     color: white;
-    background-color: #007BFF;
+    background-color: #8a8a8a;
     border-radius: 25px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
 .capture-link:hover {
-    background-color: #0056b3;
+    background-color: #57503a;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
 
 .capture-link:active {
-    background-color: #003f7f;
+    background-color: #6b6246;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transform: translateY(0);
 }
