@@ -43,12 +43,11 @@ h1 {
     color: #fffdf8;
     border-radius: 1vw;
     background-color: #000000;
-    box-shadow: 0 4px 4px rgba(68, 68, 68, 0.1), inset 0 1px 3px rgb(255 255 255 / 0.3);
     transition: transform 0.6s;
     backface-visibility: hidden;
     padding: 10px;
     box-sizing: border-box;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .cardface__front {
@@ -67,7 +66,7 @@ h1 {
     height: 200px;
     word-wrap: break-word;
     overflow: auto;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .is-flipped .cardface__back {
@@ -175,13 +174,13 @@ h1 {
     color: white;
     background-color: #8a8a8a;
     border-radius: 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
 .capture-link:hover {
     background-color: #57503a;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
 
