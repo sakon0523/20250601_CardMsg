@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">  <!-- 検索エンジンから非表示 -->
+  <title>結婚式席次表</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .circle-tables {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      align-items: center;
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .tables-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0;
+      gap: 20px;
+    }
+    .tables-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    .table-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      background-color: #d8cfc3;
+      font-size: 0;
+      position: relative;
+    }
+    .table-btn::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #d8cfc3;
+    }
+    .table-btn.selected {
+      outline: 4px solid #a8917a;
+      background-color: #a8917a;
+    }
+    .guest-circle {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      margin: 20px auto;
+      border-radius: 50%;
+      background-color: #f8f4f0;
+    }
+    .guest-circle .guest-name {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      width: 80px;
+      text-align: center;
+      word-wrap: break-word;
+      line-height: 1.2;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <h1 class="title">SEATING CHART</h1>
+    <p class="subtitle">席次表</p>
+    <input type="text" id="searchInput" placeholder="自分の席を探す" />
+  </header>
+
+  <section class="circle-tables">
+    <div class="groom-label">新郎 <span>実智隆</span></div>
+    <div class="bride-label">新婦 <span>優花</span></div>
+  </section>
+
+  <section class="tables-layout">
+    <div class="tables-row">
+      <button class="table-btn" data-table="1"></button>
+      <button class="table-btn" data-table="2"></button>
+    </div>
+    <div class="tables-row">
+      <button class="table-btn" data-table="3"></button>
+      <button class="table-btn" data-table="4"></button>
+      <button class="table-btn" data-table="5"></button>
+    </div>
+    <div class="tables-row">
+      <button class="table-btn" data-table="6"></button>
+      <button class="table-btn" data-table="7"></button>
+      <button class="table-btn" data-table="8"></button>
+    </div>
+  </section>
+
+  <section class="table-detail" id="tableDetail">
+    <h2>TABLE <span id="tableNumber">1</span></h2>
+    <div class="guest-circle" id="guestCircle"></div>
+  </section>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <img src="seating_chart_large.png" alt="全体図" />
+      <span class="close-button" id="closeModal">×</span>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <button class="menu-button">MENU</button>
+    <button class="chart-button" id="openModal">CHART 席次表</button>
+  </footer>
+
+  <script>
+    let guestsData = {};
+    let currentSelected = null;
+
+    document.querySelectorAll('.table-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tableNum = parseInt(btn.dataset.table);
+        selectTable(tableNum);
+      });
+    });
+
+    fetch('guests.json')
+      .then(res => res.json())
+      .then(data => {
+        guestsData = data;
+        selectTable(1);
+      })
+      .catch(err => console.error('ゲストデータ読み込みエラー:', err));
+
+    function selectTable(tableNumber) {
+      currentSelected = tableNumber;
+
+      document.querySelectorAll('.table-btn').forEach(btn => {
+        btn.classList.remove('selected');
+        if (parseInt(btn.dataset.table) === tableNumber) {
+          btn.classList.add('selected');
+        }
+      });
+
+      document.getElementById('tableNumber').textContent = tableNumber;
+
+      const guestCircle = document.getElementById('guestCircle');
+      guestCircle.innerHTML = '';
+
+      const guests = guestsData[tableNumber.toString()] || [];
+
+      if (guests.length === 0) {
+        guestCircle.innerHTML = '<div style="text-align:center;">ゲスト情報が登録されていません。</div>';
+      } else {
+        const radius = 100;
+        const centerX = 120;
+        const centerY = 120;
+        const total = guests.length;
+
+        const even = total % 2 === 0;
+        const startAngle = even ? -Math.PI / 2 : -Math.PI / 2 - (Math.PI / total);
+
+        guests.forEach((guest, i) => {
+          const angle = startAngle + (i * 2 * Math.PI / total);
+          const x = centerX + radius * Math.cos(angle);
+          const y = centerY + radius * Math.sin(angle);
+
+          const div = document.createElement('div');
+          div.className = 'guest-name';
+          div.style.left = `${x}px`;
+          div.style.top = `${y}px`;
+
+          if (typeof guest === 'object' && guest.role && guest.name) {
+            div.innerHTML = `<strong>${guest.role}</strong><br>${guest.name}`;
+          } else {
+            div.textContent = guest;
+          }
+
+          guestCircle.appendChild(div);
+        });
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const query = this.value.trim();
+      if (!query) return;
+
+      for (const [tableNum, names] of Object.entries(guestsData)) {
+        if (names.some(name => {
+          if (typeof name === 'object') {
+            return name.name.includes(query) || name.role.includes(query);
+          }
+          return name.includes(query);
+        })) {
+          selectTable(parseInt(tableNum));
+          return;
+        }
+      }
+    });
+
+    const modal = document.getElementById('modal');
+    document.getElementById('openModal').addEventListener('click', () => {
+      modal.classList.remove('hidden');
+    });
+    document.getElementById('closeModal').addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>
