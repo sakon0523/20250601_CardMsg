@@ -31,6 +31,7 @@ h1 {
 
 .message-container p {
     margin: 5px 0;
+    text-align: left;
 }
 
 .cardface {
@@ -38,7 +39,6 @@ h1 {
     top: 0;
     left: 0;
     display: grid;
-    place-items: center;
     width: 100%;
     height: 200px;
     color: #fffdf8;
@@ -52,7 +52,10 @@ h1 {
 }
 
 .cardface__front {
-    transform: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .is-flipped .cardface__front {
