@@ -63,20 +63,22 @@ def generate_qr_codes(base_dir, base_url, output_dir):
                 print(f"QRコードを生成しました: {output_file}")
 
 def load_team_data(csv_file):
-    """CSVファイルからフォルダ名とチーム名の対応を読み込む"""
+    """CSVファイルからフォルダ名とチーム名、日本語名の対応を読み込む"""
     team_data = {}
     with open(csv_file, mode="r", encoding="utf-8") as file:
         reader = csv.DictReader(file)
         for row in reader:
-            print(row)
-            print(row["name"], row["team"])
-            # 'name'列をキーにして、'team'列を値として格納
-            team_data[row["name"]] = row["team"]
+            # 'name'列をキーにして、'team'列と'name_jp'列を値として格納
+            team_data[row["name"]] = {
+                "team": row["team"],
+                "name_jp": row["name_jp"]
+            }
     return team_data
 
 def create_a4_with_qr_codes(output_dir, output_file_prefix="qr_codes_page"):
     # チームデータを読み込む
     team_data = load_team_data(CSV_FILE)
+    print("チームデータ:", team_data)
 
     # QRコード画像を取得
     qr_files = [f for f in os.listdir(output_dir) if f.endswith(".png")]
@@ -109,24 +111,30 @@ def create_a4_with_qr_codes(output_dir, output_file_prefix="qr_codes_page"):
         qr_path = os.path.join(output_dir, qr_file)
         qr_img = Image.open(qr_path).resize((QR_SIZE, QR_SIZE))  # QRコードをリサイズ
         qr_img_pos_x = x + add_x
-        qr_img_pos_y = y + MARGIN - 10
+        qr_img_pos_y = y + MARGIN - 30
         a4_image.paste(qr_img, (qr_img_pos_x, qr_img_pos_y))  # QRコードを貼り付け
 
         # ファイル名（フォルダ名）を描画
         label = os.path.splitext(qr_file)[0]  # 拡張子を除いたファイル名
-        text_bbox = draw.textbbox((0, 0), label, font=font)  # 日本語対応フォントを使用
+        team_info = team_data.get(label, {"team": "Unknown", "name_jp": ""})
+        team_name = team_info["team"]
+        name_jp = team_info["name_jp"] + ' 様'
+        text_bbox = draw.textbbox((0, 0), name_jp, font=font)  # 日本語対応フォントを使用
         text_width = text_bbox[2] - text_bbox[0]
         text_x = x + (QR_SIZE - text_width) // 2 + add_x
-        text_y = y + QR_SIZE + 30  # QRコードの下に描画
-        draw.text((text_x, text_y), label, fill="black", font=font)
+        text_y = y + QR_SIZE + 10  # QRコードの下に描画
+        draw.text((text_x, text_y), name_jp, fill="black", font=font)
 
         # チーム名を描画（QRコードの右側）
-        team_name = team_data.get(label, "Unknown")  # フォルダ名に対応するチーム名を取得
         hashtags_list = [f"#{tag}" for tag in team_name.split("/")]  # ハッシュタグ形式に変換
-        hashtags = "\n".join([" ".join(hashtags_list[i:i+2]) for i in range(0, len(hashtags_list), 2)])  # 2個ずつ改行
+        hashtags = "\n".join([" ".join(hashtags_list[i:i+1]) for i in range(0, len(hashtags_list), 1)])  # 2個ずつ改行
         team_text_x = x + QR_SIZE + add_x  # QRコードの右側に配置
         team_text_y = qr_img_pos_y + 50  # QRコードの上部に揃える
         draw.text((team_text_x, team_text_y), hashtags, fill="black", font=font)
+
+        # passを記載
+        pass_text = "pass: my0601"
+        draw.text((team_text_x, team_text_y+250), pass_text, fill="black", font=font)
 
         # 点線を描画（フォルダ名の下）
         dotted_line_y = y + QR_SIZE + 100  # フォルダ名の下に点線を描画
