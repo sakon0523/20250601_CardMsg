@@ -95,6 +95,7 @@ def create_a4_with_qr_codes(output_dir, output_file_prefix="qr_codes_page"):
     add_x = 0
 
     for qr_file in qr_files:
+        print("qr_file:", qr_file)
         if is_new_page:
             for x_pos in range(MARGIN, A4_WIDTH - MARGIN, 10):  # 点線を10px間隔で描画
                 draw.line((x_pos, START_MARGIN, x_pos + 5, START_MARGIN), fill="black", width=1)
@@ -124,6 +125,7 @@ def create_a4_with_qr_codes(output_dir, output_file_prefix="qr_codes_page"):
         text_x = x + (QR_SIZE - text_width) // 2 + add_x
         text_y = y + QR_SIZE + 10  # QRコードの下に描画
         draw.text((text_x, text_y), name_jp, fill="black", font=font)
+        print("name_jp", name_jp)
 
         # チーム名を描画（QRコードの右側）
         hashtags_list = [f"#{tag}" for tag in team_name.split("/")]  # ハッシュタグ形式に変換
@@ -131,6 +133,7 @@ def create_a4_with_qr_codes(output_dir, output_file_prefix="qr_codes_page"):
         team_text_x = x + QR_SIZE + add_x  # QRコードの右側に配置
         team_text_y = qr_img_pos_y + 50  # QRコードの上部に揃える
         draw.text((team_text_x, team_text_y), hashtags, fill="black", font=font)
+        print("hashtags:", hashtags)
 
         # passを記載
         pass_text = "pass: my0601"
